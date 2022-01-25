@@ -1,4 +1,4 @@
-## Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances
+## Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imbalances
 
 [Link to Report](/Causal%20Inference/Report%20-%20Impact%20of%20COVID%20Misinformation%20on%20Vaccination%20-%20A%20Reanalysis%20Identifying%20and%20Addressing%20Covariate%20Imabalances.pdf)
 
