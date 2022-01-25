@@ -1,5 +1,7 @@
 # Experiment - Can I Pay2Win for First Person Shooting Games?
 
+[Link to Report](/Design%20of%20Experiments/Report%20-%20Can%20I%20Pay2Win%20for%20First%20Person%20Shooting%20Games.pdf)
+
 Class: [STATS 263](https://artowen.su.domains/courses/363-1415/) - Design of Experiments
 
 Code (in R): [Google Colab](https://colab.research.google.com/drive/1JXveQ5GIK52_TwRZ14CiS4XF6amgUXcJ?usp=sharing)
