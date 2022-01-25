@@ -1,5 +1,7 @@
 ## Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances
 
+[Link to Report](/Causal%20Inference/Report%20-%20Impact%20of%20COVID%20Misinformation%20on%20Vaccination%20-%20A%20Reanalysis%20Identifying%20and%20Addressing%20Covariate%20Imabalances.pdf)
+
 Class: [STATS 209](https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&q=STATS+209%3A+Introduction+to+Causal+Inference&collapse=) - Causal Inference
 
 Code (in R): [Google Colab](https://colab.research.google.com/drive/1m-5hD2vt-CH9IzeQGlbHD6cQt5Qaih9b?usp=sharing)
