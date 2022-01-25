@@ -1,5 +1,7 @@
 # Stock Price Predictions
 
+[Link to Report](/Stock%20Predictions/Report%20-%20Predicting%20Security%20Prices.pdf)
+
 Class: [STATS 202](https://stats-202.github.io/) - Data Mining and Analysis
 
 Code (in R): [Google Colab](https://colab.research.google.com/drive/10Ze50f7lqaIhnqwnDOKastTpuRbXjEO7?usp=sharing)
