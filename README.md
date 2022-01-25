@@ -24,7 +24,7 @@ We sought to build a 3 day ahead prediction for the air quality index of Santa C
 
 Our presentation slides can be found [here](https://docs.google.com/presentation/d/1ceUaLOzDaqnKD3VWfMPAv-vJA9nDjUhnisoOHEsvEmo/edit?usp=sharing).
 
-## [Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances](Causal%20Inference)
+## [Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imbalances](Causal%20Inference)
 
 [Link to Report](/Causal%20Inference/Report%20-%20Impact%20of%20COVID%20Misinformation%20on%20Vaccination%20-%20A%20Reanalysis%20Identifying%20and%20Addressing%20Covariate%20Imabalances.pdf)
 
