@@ -1,5 +1,7 @@
 # Enhancing Short Term Air Quality Predictions with Location & Meteorological Data
 
+[Link to Report](/Time%20Series%20Analysis/Report%20-%20Enhancing%20Short%20Term%20AQI%20Predictions%20with%20Location%20%26%20Meteorological%20Data.pdf)
+
 Class: [STATS 207](https://stats207.github.io/) - Time Series Analysis
 
 Code (in Python): [Google Colab](https://colab.research.google.com/drive/1KIKg49sdifofzCIjpVpQPysOMXAv9ILT?usp=sharing)
