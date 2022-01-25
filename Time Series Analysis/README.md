@@ -1,7 +1,9 @@
-# Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances
+# Enhancing Short Term Air Quality Predictions with Location & Meteorological Data
 
-Class: [STATS 209](https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&q=STATS+209%3A+Introduction+to+Causal+Inference&collapse=) - Causal Inference
+Class: [STATS 207](https://stats207.github.io/) - Time Series Analysis
 
-Code (in R): [Google Colab](https://colab.research.google.com/drive/1m-5hD2vt-CH9IzeQGlbHD6cQt5Qaih9b?usp=sharing)
+Code (in Python): [Google Colab](https://colab.research.google.com/drive/1KIKg49sdifofzCIjpVpQPysOMXAv9ILT?usp=sharing)
 
-We reanalyzed a randomized controlled trial ([Original Paper](https://www.nature.com/articles/s41562-021-01056-1), [Original Github](https://github.com/sloomba/covid19-misinfo/)) that exposed participants to COVID misinformation and measured its impact on vaccination intent. We evaluated the study’s randomization and show that it is significantly imbalanced (p-value < 0.0001) using a Monte Carlo simulation of the Mahalanobis distance between Treatment and Control. We then reduced the bias of the estimates by applying matching estimators and performing regression adjustment using Lin’s Estimator. We also explored heterogeneous treatment effects and provide some intuitive insights.
+We sought to build a 3 day ahead prediction for the air quality index of Santa Clara County. We approached the problem with increasingly complex models **(ARMA, VARIMA, LSTM)** and evaluated the performance increase with a sliding window cross-validation strategy. We specifically included AQI and meteorology data features from surrounding counties and improved performance when using relevant features.
+
+Our presentation slides can be found [here](https://docs.google.com/presentation/d/1ceUaLOzDaqnKD3VWfMPAv-vJA9nDjUhnisoOHEsvEmo/edit?usp=sharing).
