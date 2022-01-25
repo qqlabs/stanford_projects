@@ -2,7 +2,7 @@
 
 This repo holds the projects I worked on for my M.S. in Statistics at Stanford.
 
-## [Stock Price Predictions](Stock%20Predictions/README.md)
+## [Stock Price Predictions](Stock%20Predictions)
 
 Class: [STATS 202](https://stats-202.github.io/) - Data Mining and Analysis
 
@@ -10,7 +10,7 @@ Code (in R): [Google Colab](https://colab.research.google.com/drive/10Ze50f7lqaI
 
 We were tasked with making a 9 day forecast at the 5-second granularity for 9 anonymized stock tickers. After exploring baseline and ARIMA models, we ultimately structured the problem as a **direct forecasting problem** and used the [forecast-ml package](https://github.com/nredell/forecastML) to train and make predictions. Note that we did not actually learn how to do time series analysis for this class, so we had to convert the problem into a structure we were familiar with.
 
-## [Enhancing Short Term Air Quality Predictions with Location & Meteorological Data](Time%20Series%20Analysis/README.md)
+## [Enhancing Short Term Air Quality Predictions with Location & Meteorological Data](Time%20Series%20Analysis)
 
 Class: [STATS 207](https://stats207.github.io/) - Time Series Analysis
 
@@ -20,7 +20,7 @@ We sought to build a 3 day ahead prediction for the air quality index of Santa C
 
 Our presentation slides can be found [here](https://docs.google.com/presentation/d/1ceUaLOzDaqnKD3VWfMPAv-vJA9nDjUhnisoOHEsvEmo/edit?usp=sharing).
 
-## [Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances](Causal%20Inference/README.md)
+## [Impact of COVID Misinformation on Vaccination - A Reanalysis Identifying and Addressing Covariate Imabalances](Causal%20Inference)
 
 Class: [STATS 209](https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&q=STATS+209%3A+Introduction+to+Causal+Inference&collapse=) - Causal Inference
 
@@ -28,7 +28,7 @@ Code (in R): [Google Colab](https://colab.research.google.com/drive/1m-5hD2vt-CH
 
 We reanalyzed a randomized controlled trial ([Original Paper](https://www.nature.com/articles/s41562-021-01056-1), [Original Github](https://github.com/sloomba/covid19-misinfo/)) that exposed participants to COVID misinformation and measured its impact on vaccination intent. We evaluated the study’s randomization and show that it is **significantly imbalanced** (p-value < 0.0001) using a Monte Carlo simulation of the **Mahalanobis distance between Treatment and Control**. We then reduced the bias of the estimates by applying **matching estimators** and performing **regression adjustment using Lin’s Estimator**. We also explored **heterogeneous treatment effects** and provide some intuitive insights.
 
-## [Experiment - Can I Pay2Win for First Person Shooting Games?](Design%20of%20Experiments/README.md)
+## [Experiment - Can I Pay2Win for First Person Shooting Games?](Design%20of%20Experiments)
 
 Class: [STATS 263](https://artowen.su.domains/courses/363-1415/) - Design of Experiments
 
