@@ -1,0 +1,272 @@
+---
+title: "STATS 211 - Reanalysis of “Does Daylight Saving Save Electricity?”"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+# Import Data
+
+Original Paper: https://meta-analysis.cz/dst/dst.pdf
+
+Website + Data: http://meta-analysis.cz/dst
+
+```{r}
+dst_df <- read.csv("dst.csv")
+```
+
+```{r}
+dst_df %>% head()
+```
+
+Add in some missing variables for later use 
+```{r}
+dst_df <- dst_df %>% 
+  mutate(OTHER_ANALYSIS = --!(REGRESSION | SIMULATION),
+         COMMERCIAL = 1 - RESIDENT,
+         UNREFEREED = 1 - JOURNAL,
+         WITH_SE = --!is.na(SE),
+         ALL = 1)
+```
+
+# Recreate Initial BoxPlots
+
+Figure 2: It looks like they are just plotting the variation of estimates reported in each study
+
+```{r}
+dst_df %>%
+  ggplot(aes(x=LABEL, y=ESTIMATE)) +
+  geom_boxplot() +
+  coord_flip() +
+  geom_hline(yintercept=0, linetype='longdash')
+```
+
+Figure 3
+
+```{r}
+dst_df %>%
+  ggplot(aes(x=COUNTRY, y=ESTIMATE)) +
+  geom_boxplot() +
+  coord_flip() +
+  geom_hline(yintercept=0, linetype='longdash')
+```
+# Main Estimate
+
+Table 2: Looks like we're just doing mean of estimates with different slices
+
+```{r}
+columns <- c(quo(HOUR), quo(DAY), quo(MAIN), quo(EUROPE), quo(USA), quo(REGRESSION), quo(SIMULATION), quo(OTHER_ANALYSIS), quo(RESIDENT), quo(COMMERCIAL), quo(LIGHT), quo(DID), quo(JOURNAL), quo(UNREFEREED), quo(WITH_SE), quo(ALL))
+
+report_df <- data.frame(
+  subgroup = character(),
+  n = integer(),
+  mean = double(),
+  ci_lower = double(),
+  ci_upper = double(),
+  w_mean = double(),
+  w_ci_lower = double(),
+  w_ci_upper = double(),
+  SD = double(),
+  w_SD = double()
+)
+
+for (col in columns) {
+  report_df <- bind_rows(
+    report_df,
+    dst_df %>%
+      filter(!!col == 1) %>%
+      summarize(
+        n = n(),
+        mean = mean(ESTIMATE),
+        SD = sqrt(mean((ESTIMATE-mean)^2) / n),
+        ci_lower = mean - qt(.975, df=n) * SD,
+        ci_upper = mean + qt(.975, df=n) * SD,
+        w_mean = weighted.mean(ESTIMATE, WEIGHT),
+        w_SD = sqrt(weighted.mean((ESTIMATE-w_mean)^2, wt=WEIGHT) / n),
+        w_ci_lower = mean - qt(.975, df=n) * w_SD,
+        w_ci_upper = mean + qt(.975, df=n) * w_SD
+      ) %>% 
+      mutate(subgroup = quo_name(col)) %>% 
+      select(
+        subgroup,
+        n,
+        mean,
+        ci_lower,
+        ci_upper,
+        w_mean,
+        w_ci_lower,
+        w_ci_upper,
+        SD,
+        w_SD
+      )
+  )
+}
+
+report_df
+```
+Notice how the weights are calculated by just dividing the number of observations reported per study instead of by sample size. This means this is NOT a meta analysis.
+
+```{r}
+dst_df %>% 
+  filter(!is.na(N)) %>% 
+  select(LABEL, N, WEIGHT)
+```
+A lot of estimates also missing SE.
+```{r}
+dst_df %>% summarize(num_rows = n(), pct_has_se= sum(WITH_SE)/n())
+```
+```{r}
+dst_df %>%
+  group_by(IDSTUDY) %>%
+  summarize(at_least_one_se = max(WITH_SE),
+            all_se = min(WITH_SE)) %>%
+  ungroup() %>%
+  summarize(
+    num_unique_studies = n(),
+    at_least_one_se = sum(at_least_one_se),
+    all_se = sum(all_se),
+    pct_at_least_one_se = sum(at_least_one_se) / n(),
+    pct_all_se = sum(all_se) / n()) %>% 
+  select(
+    num_unique_studies, pct_at_least_one_se, pct_all_se
+  )
+```
+
+# Publication Bias
+
+Figure 5: Funnel plot recreation. Filters were applied in original.
+
+```{r}
+dst_df %>% 
+  filter(ESTIMATE > -5 & PRECISION < 15) %>% 
+  ggplot(aes(x=ESTIMATE, y=PRECISION)) +
+  geom_point() +
+  xlim(-3, 1.5) +
+  ylim(0, 15) +
+  geom_vline(xintercept=-0.344, linetype='dotted')
+```
+Remove filters
+
+```{r}
+dst_df %>%
+  ggplot(aes(x=ESTIMATE, y=PRECISION)) +
+  geom_point() +
+  geom_vline(xintercept=-0.344, linetype='dotted') +
+  ggtitle('Funnel Plot No Filtering')
+```
+Zoom in a little bit
+
+```{r}
+dst_df %>%
+  filter(PRECISION < 300) %>% 
+  ggplot(aes(x=ESTIMATE, y=PRECISION)) +
+  geom_point() +
+  geom_vline(xintercept=-0.344, linetype='dotted') +
+  ggtitle('Funnel Plot Zoomed In')
+```
+A lot of precision numbers were missing, so the funnel plot doesn't seem representative. Let's calculate exactly how much was missing.
+
+```{r}
+dst_df %>%
+  summarize(
+    num_rows = n(),
+    missing_precision = sum(is.na(PRECISION)),
+    pct_missing_precision = missing_precision / num_rows
+  ) %>% 
+  select(num_rows, pct_missing_precision)
+```
+Over 37% of rows are missing precision.
+
+```{r}
+dst_df %>% 
+  group_by(IDSTUDY) %>% 
+  summarize(
+    has_missing_precision = min(is.na(PRECISION))
+  ) %>% 
+  ungroup() %>% 
+  summarize(
+    studies_missing_all_precision = sum(has_missing_precision),
+    pct_studies_missing_precision = sum(has_missing_precision)/n()
+  )
+```
+Our funnel plot only represents ~30% of unique studies
+
+Let's add in the missing study estimates at -10 just to see if they seem to skew in a certain way. It looks like a lot of estimates are closer to 0.
+
+```{r}
+dst_df %>%
+  mutate(
+    PRECISION_FILLED = replace_na(PRECISION,-10),
+    missing_precision = is.na(PRECISION)
+  ) %>%
+  filter(PRECISION_FILLED < 300) %>%
+  ggplot(aes(x = ESTIMATE, y = PRECISION_FILLED)) +
+  geom_point(aes(color = missing_precision)) +
+  geom_vline(xintercept = -0.344, linetype = 'dotted') +
+  ggtitle('Funnel Plot Adding Missing Studies')
+```
+Table 3:
+It looks like a regular least squares gets similar estimates. The report did weighted least squares.
+```{r}
+se_reg <- lm("ESTIMATE ~ SE", data=dst_df)
+se_reg %>% summary()
+```
+
+```{r}
+dst_df %>% 
+  # filter(ESTIMATE > -5 & PRECISION < 15) %>% 
+  ggplot(aes(x=DSTYEAR, y=ESTIMATE)) +
+  geom_point()
+```
+## Meta-Regression
+```{r}
+dst_df %>% str()
+```
+
+
+Table 5: Running OLS on the relevant variables yields different estimates, but the same significant variables identified.
+
+```{r}
+meta_reg <- lm("ESTIMATE ~ PERIOD + MAIN + DAY + DAYLIGHT + USA + REGRESSION + SIMULATION + DID + RESIDENT + LIGHT + PUBYEAR + JOURNAL + IMPACT + CITATIONS", data=dst_df)
+meta_reg %>% summary()
+```
+
+## BMS
+
+I could not recreate the bayesian model averaging. I tried copying their excel directly from clipboard but it doesn't work since the first column is not the estimate (which the bms package requires). I then copied from the estimate onwards and still was not able to run the package. Commenting out the code to show what I tried.
+
+```{r}
+# library(BMS)
+```
+
+```{r}
+# datadaylight = read.table("clipboard-512", sep="\t", header=TRUE)
+# datadaylight %>% head()
+```
+
+
+```{r}
+# bms_df <- dst_df %>% 
+#   select(ESTIMATE, HOUR, DAY, MAIN, EUROPE, USA, REGRESSION, SIMULATION, OTHER_ANALYSIS, RESIDENT, COMMERCIAL, LIGHT, DID, JOURNAL, UNREFEREED, WITH_SE, ALL)
+```
+
+```{r}
+# bms_df[complete.cases(bms_df),]
+```
+
+
+
+```{r}
+# daylight = bms(datadaylight, burn=1000000, iter=2000000, g="UIP", mprior="uniform", nmodel=5000, mcmc="bd", user.int=FALSE)
+# daylight2 = bms(datadaylight, burn=1000000, iter=2000000, g="BRIC", mprior="random", nmodel=5000, mcmc="bd", user.int=FALSE)
+# daylight3 = bms(datadaylight, burn=1000000,iter=2000000, g="hyper=BRIC", mprior="random", nmodel=5000, mcmc="bd", user.int=FALSE)
+```
+
+
