@@ -2,15 +2,18 @@
 
 This repo holds the projects I worked on for my M.S. in Statistics at Stanford.
 
-## [Stock Price Predictions](Stock%20Predictions)
+## [Generating Robustness: Exploring Various Ways to Adapt Question Answering to New Domains](Natural%20Language%20Processing%20with%20Deep%20Learning)
 
-[Link to Report](/Stock%20Predictions/Report%20-%20Predicting%20Security%20Prices.pdf)
+[Link to Report](/Natural%20Language%20Processing%20with%20Deep%20Learning/Report%20-%20Generating%20Robustness.pdf)
+[Link to Poster](/Natural%20Language%20Processing%20with%20Deep%20Learning/Academic%20Poster%20-%20Generating%20Robustness.pdf)
 
-Class: [STATS 202](https://stats-202.github.io/) - Data Mining and Analysis
+Class: [CS 224N](https://web.stanford.edu/class/cs224n/) - Natural Language Processing with Deep Learning
 
-Code (in R): [Google Colab](https://colab.research.google.com/drive/10Ze50f7lqaIhnqwnDOKastTpuRbXjEO7?usp=sharing)
+Code: Private Github due to Default Final Project
 
-We were tasked with making a 9 day forecast at the 5-second granularity for 9 anonymized stock tickers. After exploring baseline and ARIMA models, we ultimately structured the problem as a **direct forecasting problem** and used the [forecast-ml package](https://github.com/nredell/forecastML) to train and make predictions. Note that we did not actually learn how to do time series analysis for this class, so we had to convert the problem into a structure we were familiar with.
+Question Answering (QA), or the task of asking a model to answer a question correctly given a passage, is one of the most promising areas in NLP. However, state-of-the-art QA models tend to overfit to training data and do not generalize well to new domains, requiring additional training on domain-specific datasets to adapt. In this project, we aim to design a QA system that is robust to domain shifts and can perform well on out-of-domain (OOD) fewshot data.
+
+We implement a variety of techniques that boost the robustness of a QA model trained with domain adversarial learning and evaluated on out-of-domain data, yielding a 16% increase in F1 score in development and 10% increase in test. We find that the following innovations boost model performance: 1) finetuning the model on augmented out-of-domain augmented data, 2) aggregating Wikipedia type datasets during adversarial training to simplify the domain discriminator’s task, and 3) supplementing the training data with synthetic QA pairs generated with roundtrip consistency. We also ensemble the best-performing models on each dataset and find that ensembling yields further performance increases.
 
 ## [Enhancing Short Term Air Quality Predictions with Location & Meteorological Data](Time%20Series%20Analysis)
 
@@ -47,3 +50,13 @@ We were interested in understanding what factors can help improve an average per
 We structured our experiment as a combination of a **strip-plot and stepped-wedge design**. There were many logistic details that we considered during the design, ranging from how to parallelize the runs to whether we should serve hot or cold coffee.
 
 This project focused on the design of the experiment and the data collection process. A proper experiment design helped drastically simplify what we needed to analyze.
+
+## [Stock Price Predictions](Stock%20Predictions)
+
+[Link to Report](/Stock%20Predictions/Report%20-%20Predicting%20Security%20Prices.pdf)
+
+Class: [STATS 202](https://stats-202.github.io/) - Data Mining and Analysis
+
+Code (in R): [Google Colab](https://colab.research.google.com/drive/10Ze50f7lqaIhnqwnDOKastTpuRbXjEO7?usp=sharing)
+
+We were tasked with making a 9 day forecast at the 5-second granularity for 9 anonymized stock tickers. After exploring baseline and ARIMA models, we ultimately structured the problem as a **direct forecasting problem** and used the [forecast-ml package](https://github.com/nredell/forecastML) to train and make predictions. Note that we did not actually learn how to do time series analysis for this class, so we had to convert the problem into a structure we were familiar with.
