@@ -5,7 +5,8 @@
 [Link to Poster](/Natural%20Language%20Processing%20with%20Deep%20Learning/Academic%20Poster%20-%20Generating%20Robustness.pdf)
 
 Class: [CS 224N](https://web.stanford.edu/class/cs224n/) - Natural Language Processing with Deep Learning
-This project won a best poster award for the CS224N course (https://web.stanford.edu/class/cs224n/project.html).
+
+Note: This project won a best poster award for the CS224N course (https://web.stanford.edu/class/cs224n/project.html).
 
 Code: Private Github due to Default Final Project
 
