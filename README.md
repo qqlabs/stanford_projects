@@ -10,7 +10,7 @@ This repo holds the projects I worked on for my M.S. in Statistics at Stanford.
 
 Class: [CS 224N](https://web.stanford.edu/class/cs224n/) - Natural Language Processing with Deep Learning
 
-Code: Private Github due to Default Final Project
+Code: https://github.com/qqlabs/cs224n-project
 
 Question Answering (QA), or the task of asking a model to answer a question correctly given a passage, is one of the most promising areas in NLP. However, state-of-the-art QA models tend to overfit to training data and do not generalize well to new domains, requiring additional training on domain-specific datasets to adapt. In this project, we aim to design a QA system that is robust to domain shifts and can perform well on out-of-domain (OOD) fewshot data.
 
